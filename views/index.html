@@ -1,0 +1,45 @@
+﻿<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>hichat</title>
+        <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
+        <script src="/bootstrap-3.3.5-dist/js/jquery-1.9.1.min.js"></script>
+        <script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+        <script src="/scripts/hichat2.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+    </head>
+    <body>
+        <div id="loginbar">
+            <div class="input-group">
+                <span class="input-group-addon" id="usernamesp" >用&nbsp;户&nbsp;名</span>
+                <input id="usernametb" type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="passwordsp">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</span>
+                <input id="passwordtb" type="text" class="form-control" placeholder="password" aria-describedby="basic-addon1">
+            </div>
+            <button id="loginBtn" type="button" class="btn btn-default" >注册</button>
+        </div>
+        <div id="rowdiv" class="row" style="display: none">
+            <div class="col-sm-4" style="float: left">
+                <div class="list-group"></div>
+
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="float: left">
+                <div id="historyMsg" style="width: 80%;height: 200px;border:1px solid #000000;">
+                </div>
+                <div id="sendMsgtb" style="width: 80%;height: 50px;border:1px solid #000000;">
+                    <input id="sendmsg" style="width: 100%;height: 50px;"/>
+                </div>
+                <button id="sendBtn" type="button" class="btn btn-default" >发送</button>
+            </div>
+        </div>
+
+</body>
+</html>

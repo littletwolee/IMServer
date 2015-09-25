@@ -1,0 +1,14 @@
+{
+  "redisserver":{
+    "host":"pub-redis-12648.us-east-1-2.4.ec2.garantiadata.com",
+    "port":"12648",
+    "password":"B7JtINaGLmOfq3SR"
+  },
+  "mongoserver":{
+    "host":"ds051863.mongolab.com",
+    "port":"51863",
+    "dbname":"appharbor_l9r3h5xr",
+    "username":"littletwolee",
+    "password":"LIhui0521"
+  }
+}
