@@ -8,7 +8,7 @@ var getRoutes = require("./routes");
 var ejs = require('ejs');
 var app = getRoutes.getRoutes();
 var server = require('http').createServer(app);
-//var mongoosehelper = require("./tools/mongoosehelper");
+var mongoosehelper = require("./tools/mongoosehelper");
 var SocketIOrequire = require("./tools/socketiohelper");
 
 //var routes = require('./routes/index');

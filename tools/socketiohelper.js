@@ -5,7 +5,7 @@ var io = require('socket.io'),
     redishelper = require("./redishelper");
 SocketIO = function(server){
     io = io.listen(server);
-    io.sockets.on('connection', function(socket) {
+    io.on('connection', function(socket) {
         //new user login
         socket.on('login', function(nickname) {
             socket.nickname = nickname;
@@ -41,28 +41,11 @@ SocketIO = function(server){
                 if(err != null){
                     socket.emit('error', err);
                 }else{
-                    getsocket(result,function(result){
-                        if(result){
-                            result.emit('to',{msg:msg});
-                        }else{
-                            socket.emit('error', err);
-                        };
-                    })
+                    io.sockets.connected[result].emit('to',{msg:msg});
                 };
             });
         });
     });
 
-};
-function getsocket(socket_id,callback){
-    var len = io.sockets.sockets.length;
-    var result=undefined
-    for(var i = 0;i<len;i++){
-        if(io.sockets.sockets[i].id==socket_id){
-            result =io.sockets.sockets[i];
-            break;
-        }
-    };
-    callback(result);
 };
 exports.SocketIO = SocketIO;
