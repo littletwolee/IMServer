@@ -38,7 +38,7 @@ HiChat.prototype = {
                 document.getElementById('info').textContent = '!fail to connect :(';
             }
         });
-        this.socket.on('system', function(nickName, userCount, type) {
+        this.socket.on('system', function(nickName, type) {
             var msg = nickName + (type == 'login' ? $(".list-group").append('<a id="'+nickName+'_li" class="list-group-item" href="#">'+nickName+'</a>')
                     : $("#"+nickName+"_li").remove());
             //that._displayNewMsg('system ', msg, 'red');
@@ -54,7 +54,8 @@ HiChat.prototype = {
             $("#historyMsg").append('<div>'+data.from+'说'+data.msg+'</div>');
         });
         document.getElementById('sendBtn').addEventListener('click', function() {
-            that.socket.emit('private message',"bruce","kevin",$("#sendmsg").val());
+            var touser = $("#touser").val().trim();
+            that.socket.emit('private message',touser,$("#sendmsg").val());
 
         }, false);
         document.getElementById('loginBtn').addEventListener('click', function() {
