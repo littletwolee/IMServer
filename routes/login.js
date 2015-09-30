@@ -3,10 +3,15 @@
  */
 var express = require('express'),
     router = express.Router(),
-    mongohelper = require("../tools/mongohelper"),
-    FriendShip = require("../modules/friendshipschema").FriendShip(),
+    uuid = require("node-uuid"),
+    querystring = require("querystring"),
+    JsonHelper = require("../tools/jsonhelper"),
+    Mongohelper = require("../tools/mongohelper"),
+    Objects = require("../modules/objects"),
+    Mh = new Mongohelper.MongoHelper(),
+    Users = require("../modules/usersschema").Users();
 /* GET home page. */
-router.post('/login', function(req, res) {
+router.post('/', function(req, res) {
     req.setEncoding('utf-8');
     var postData = "";
     req.addListener("data", function (postDataChunk) {
@@ -16,29 +21,23 @@ router.post('/login', function(req, res) {
         var params = querystring.parse(postData);
         var username = params["username"];
         var password = params["password"];
-        mh.getOneDocumentByParameters({userName:username},StaffInfo.SimpleShowItems,StaffInfo.StaffInfoModel,function(err,sdoc){
+        Mh.getOneDocumentByParameters({userName:username},Users.DetialShowItems,Users.UsersModel,function(err,doc){
             if(err){
-                JsonHelper.StaticClass.objectToJsonres(res,sdoc)
+                JsonHelper.StaticClass.objectToJsonres(res,doc);
             }else{
-                mh.getOneDocumentByParameters({StaffID:me},FriendShip.DetialShowItems,FriendShip.FriendShipModel,function(err,doc){
-                    if(err){
-                        JsonHelper.StaticClass.objectToJsonres(res,doc)
-                    }else{
-                        if(doc == undefined || doc == null){
-                            friendship = FriendShip.FriendShipModel({
-                                "StaffID" : me,
-                                "Friends" : sdoc
-                            });
-                            mh.addDocument(friendship,function(doc){
-                                JsonHelper.StaticClass.objectToJsonres(res,doc);
-                            })
-                        }else{
-                            mh.addDocumentListItem(FriendShip.FriendShipModel,{StaffID:me},{"Friends":{"$each":sdoc}},function(doc){
-                                JsonHelper.StaticClass.objectToJsonres(res,doc);
-                            });
-                        }
-                    }
-                })
+                if(doc == null){
+                    users = Users.UsersModel({
+                        "userName" : username,
+                        "passWord" : password,
+                        "userKey" :uuid.v1()
+                    });
+                    Mh.addDocument(users,function(doc){
+                        JsonHelper.StaticClass.objectToJsonres(res,doc);
+                    })
+                }else{
+                    JsonHelper.StaticClass.objectToJsonres(res,new Objects.Result(Objects.State().err, null, "This name is exists!"));
+                };
+
             }
         })
     });

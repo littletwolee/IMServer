@@ -3,7 +3,7 @@
  */
 var mongoose = require("mongoose");
 Users = function(){
-    this.UserModel = mongoose.model("Users", usersSchema,"Users");
+    this.UsersModel = mongoose.model("Users", usersSchema,"Users");
     this.DetialShowItems = "-_id";
     return this;
 };
